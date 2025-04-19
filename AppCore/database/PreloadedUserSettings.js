@@ -3,9 +3,10 @@ const Constants = require('../Constants');
 const SettingProto = require('../../AppAssets/SettingProto');
 
 module.exports = class PreloadedUserSettings extends BaseDatabase {
-	constructor() {
+	constructor(customPath = null) {
 		const config = Constants.PreloadedUserSettings;
-		super(config.name, config.path);
+		const dbPath = customPath || config.path;
+		super(config.name, dbPath);
 	}
 	get(id) {
 		return new Promise(async (resolve, reject) => {

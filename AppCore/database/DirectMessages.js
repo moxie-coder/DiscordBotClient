@@ -2,9 +2,10 @@ const BaseDatabase = require("./Base");
 const Constants = require("../Constants");
 
 module.exports = class DirectMessages extends BaseDatabase {
-	constructor() {
+	constructor(customPath = null) {
 		const config = Constants.DirectMessages;
-		super(config.name, config.path);
+		const dbPath = customPath || config.path;
+		super(config.name, dbPath);
 	}
 	// Save: bot id - {[key: channel_id]: private_channel_object}
 	get(id) {
