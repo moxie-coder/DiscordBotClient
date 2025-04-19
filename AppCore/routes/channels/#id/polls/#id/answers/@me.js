@@ -4,8 +4,9 @@ const app = Router();
 
 app.put('/', (req, res) => {
 	res.status(403).send({
-		message: 'Apps are not allowed to vote on polls. No rights! :)',
-		code: 20001,
+		message:
+			'APIServer: Apps are not allowed to vote on polls.',
+		code: 520000,
 	});
 });
 

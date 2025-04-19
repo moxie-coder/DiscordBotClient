@@ -3,8 +3,8 @@ const { Router } = require('express');
 const app = Router();
 
 app.all('/*', (req, res) => {
-	res.status(403).send({
-		message: 'Bots cannot use this endpoint (blocked by blacklist)',
+	return res.status(403).send({
+		message: 'APIServer: Bots cannot use this endpoint',
 		code: 20001,
 	});
 });

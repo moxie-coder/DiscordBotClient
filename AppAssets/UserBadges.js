@@ -197,6 +197,64 @@ class BadgesNitro extends BadgesBasedUserFlags {
 		];
 		return RawLevel.find((_) => _.id === `premium_tenure_${month}_month`);
 	};
+	/**
+	 * @param {1|3|6|12|24|36|60|72} month
+	 */
+	static PREMIUM_TENURE_V2 = (month) => {
+		const RawLevel = [
+			{
+				id: 'premium_tenure_1_month_v2',
+				description: 'Subscriber since 22/12/2016',
+				icon: '4f33c4a9c64ce221936bd256c356f91f',
+				link: 'https://discord.com/settings/premium',
+			},
+			{
+				id: 'premium_tenure_3_month_v2',
+				description: 'Subscriber since 22/12/2016',
+				icon: '4514fab914bdbfb4ad2fa23df76121a6',
+				link: 'https://discord.com/settings/premium',
+			},
+			{
+				id: 'premium_tenure_6_month_v2',
+				description: 'Subscriber since 22/12/2016',
+				icon: '2895086c18d5531d499862e41d1155a6',
+				link: 'https://discord.com/settings/premium',
+			},
+			{
+				id: 'premium_tenure_12_month_v2',
+				description: 'Subscriber since 22/12/2016',
+				icon: '0334688279c8359120922938dcb1d6f8',
+				link: 'https://discord.com/settings/premium',
+			},
+			{
+				id: 'premium_tenure_24_month_v2',
+				description: 'Subscriber since 22/12/2016',
+				icon: '0d61871f72bb9a33a7ae568c1fb4f20a',
+				link: 'https://discord.com/settings/premium',
+			},
+			{
+				id: 'premium_tenure_36_month_v2',
+				description: 'Subscriber since 22/12/2016',
+				icon: '11e2d339068b55d3a506cff34d3780f3',
+				link: 'https://discord.com/settings/premium',
+			},
+			{
+				id: 'premium_tenure_60_month_v2',
+				description: 'Subscriber since 22/12/2016',
+				icon: 'cd5e2cfd9d7f27a8cdcd3e8a8d5dc9f4',
+				link: 'https://discord.com/settings/premium',
+			},
+			{
+				id: 'premium_tenure_72_month_v2',
+				description: 'Subscriber since 22/12/2016',
+				icon: '5b154df19c53dce2af92c9b61e6be5e2',
+				link: 'https://discord.com/settings/premium',
+			},
+		];
+		return RawLevel.find(
+			(_) => _.id === `premium_tenure_${month}_month_v2`,
+		);
+	};
 }
 
 class BadgesBasedUserDataAndExtends extends BadgesNitro {

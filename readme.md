@@ -4,19 +4,21 @@
 
 ## Overview
 
-- [How to install it](#installation)
-  - [Windows](#windows)
-  - [Using prebuilt binaries](#using-prebuilt-binaries)
-  - [Building from source](#building-from-source)
+- [Installation](#installation)  
+  - [Windows](#windows)  
+  - [Using prebuilt binaries](#using-prebuilt-binaries)  
+  - [Building from source](#building-from-source)  
 - [Login](#login)
 - [Features](#features)
-- [Discord Version](#version)
+- [Version](#version)
 - [Troubleshooting](#troubleshooting)
 - [FAQ](#faq)
-- [About anti-virus detection](#about-anti-virus-detection)
+- [About anti‑virus detection](#about-anti‑virus-detection)
 - [Similar projects](#similar-projects)
-- [Update Discord Version](#how-to-update-to-the-latest-discord-version-)
+- [Star History](#star-history)
+- [How to update to the latest Discord version ?](#how-to-update-to-the-latest-discord-version-)
 - [Credits](#credits)
+- [Disclaimer](#disclaimer)
 
 > [!WARNING]
 > **Third party clients are discouraged and against the Discord TOS.**
@@ -160,8 +162,9 @@ Currently, I will only support the latest version of this application; other ver
 
 | Discord Build | Hash     | Vencord | Client version           | Status  |
 |---------------|----------|---------|--------------------------|---------|
-| Stable 389??? | ???????  | v1.11.9 | v3.?.?                   | ~~Latest~~ Beta  |
-| Stable 360320 | 38aca73  | v1.10.9 | v3.6.2                   | ~~Deprecated~~ Latest  |
+| Latest        | ?        | ?       | v3.7.?                   | ~~Beta~~  |
+| Stable 391738 | 51404a7  | v1.11.9 | v3.7.0                   | Latest  |
+| Stable 360320 | 38aca73  | v1.10.9 | v3.6.2                   | Deprecated  |
 | Stable 355624 | 8dc6074  | v1.10.9 | v3.6.0 - v3.6.1          | EOL |
 | Stable 331146 | fddab3e  | v1.10.3 | v3.5.0                   | EOL |
 | Stable 302556 | 366c746  | v1.8.9  | v3.3.0 - v3.4.1          | EOL |

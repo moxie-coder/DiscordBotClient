@@ -11,4 +11,5 @@ module.exports = class IPCEvent extends null {
 	static GetPrivateChannel = 'DBC_GET_PRIVATE_CHANNEL';
 	static HandlePrivateChannel = 'DBC_HANDLE_PRIVATE_CHANNEL';
 	static GetDefaultUserPatch = 'DBC_GET_DEFAULT_USER_PATCH';
+	static LogFromMainProcess = 'DBC_LOG_FROM_MAIN_PROCESS';
 };

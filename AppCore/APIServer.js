@@ -43,31 +43,34 @@ const lambertServer = new Server({
 lambertServer.registerRoutes(path.resolve(__dirname, `routes`) + path.sep);
 lambertServer.app = app;
 
-// Proxy
+const skipHeaders = [
+	'cookie',
+	'x-',
+	'sec-',
+	'referer',
+	'origin',
+	'authorization',
+	'user-agent',
+	'host',
+];
+
+// Handle headers
 app.all('*', function (req, res, next) {
-	let headers = {
-		'user-agent': Constants.UserAgentDiscordBot,
-	};
+	const headers = {};
 	if (req.headers.authorization) {
 		headers.authorization = `Bot ${req.headers.authorization
 			.replace(/bot/gi, '')
 			.trim()}`;
+		req.headers.authorization = headers.authorization;
+		headers['user-agent'] = Constants.UserAgentDiscordBot;
+	} else {
+		headers['user-agent'] = Constants.UserAgentChrome;
 	}
+	req.originalHeaders = req.headers;
 	Object.keys(req.headers).forEach((key) => {
 		if (
-			[
-				'cookie',
-				'x-',
-				'sec-',
-				'referer',
-				'origin',
-				'authorization',
-				'user-agent',
-				'host',
-			].some((prefix) => key.toLowerCase().startsWith(prefix))
+			!skipHeaders.some((prefix) => key.toLowerCase().startsWith(prefix))
 		) {
-			return;
-		} else {
 			headers[key] = req.headers[key];
 		}
 	});
@@ -87,13 +90,17 @@ app.use((req, res, next) => {
 	if (req.originalUrl.endsWith('.map')) return res.status(404).send();
 	if (Constants.BlacklistRoutes.some((_) => req.originalUrl.includes(_)))
 		return res.status(403).send({
-			message: 'Bots cannot use this endpoint (blocked by blacklist)',
+			message: 'APIServer: Bots cannot use this endpoint',
 			code: 20001,
 		});
-	if (req.originalUrl.includes('/api')) {
-		return proxy.web(req, res);
-	}
-	res.send(readFileSync(Constants.DiscordHTMLPath, 'utf8'));
+	// Main page
+	if (['/', '/app'].includes(req.path))
+		return res.send(readFileSync(Constants.DiscordHTMLPath, 'utf8'));
+	// API routes
+	if (req.originalUrl.includes('/api/')) return proxy.web(req, res);
+	// Other routes
+	req.headers = req.originalHeaders;
+	return proxy.web(req, res);
 });
 
 module.exports = async function start() {
@@ -107,4 +114,4 @@ module.exports = async function start() {
 		};
 		server.listen(0).once('listening', callback);
 	});
-}
+};

@@ -7,7 +7,10 @@ app.all('/', async (req, res) => {
 		case 'delete':
 		case 'patch':
 		case 'post': {
-			return res.status(403).send('Forbidden');
+			return res.status(403).send({
+				message: 'APIServer: Cannot send messages to this user',
+				code: 50007,
+			});
 		}
 		default: {
 			const SystemMessages = await GetSystemMessages();

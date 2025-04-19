@@ -5,6 +5,44 @@ function getUserDefaultPatch() {
 	return ipcRenderer.sendSync(IPCEvent.GetDefaultUserPatch);
 }
 
+class Logger {
+	constructor() {}
+	_log(scope, level, color, args) {
+		console[level](
+			`%c MainProcess %c %c ${scope} `,
+			`background: ${color}; color: black; font-weight: bold; border-radius: 5px;`,
+			'',
+			`background: #99d1db; color: black; font-weight: bold; border-radius: 5px;`,
+			...args,
+		);
+	}
+	log(scope, ...args) {
+		this._log(scope, 'log', '#a6d189', args);
+	}
+	info(scope, ...args) {
+		this._log(scope, 'info', '#a6d189', args);
+	}
+	error(scope, ...args) {
+		this._log(scope, 'error', '#e78284', args);
+	}
+	warn(scope, ...args) {
+		this._log(scope, 'warn', '#e5c890', args);
+	}
+	debug(scope, ...args) {
+		this._log(scope, 'debug', '#eebebe', args);
+	}
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+	const logger = new Logger();
+	ipcRenderer.on(
+		IPCEvent.LogFromMainProcess,
+		(_event, scope, level, ...args) => {
+			logger[level](scope, ...args);
+		},
+	);
+});
+
 contextBridge.exposeInMainWorld('BotClientNative', {
 	getBotInfo: (token) => {
 		return new Promise((resolve, reject) => {
@@ -32,7 +70,10 @@ contextBridge.exposeInMainWorld('BotClientNative', {
 					flags: 0,
 				},
 			];
-		const privateChannel = ipcRenderer.sendSync(IPCEvent.GetPrivateChannel, botId);
+		const privateChannel = ipcRenderer.sendSync(
+			IPCEvent.GetPrivateChannel,
+			botId,
+		);
 		const allChannel = Object.values(privateChannel);
 		allChannel.unshift({
 			type: 1,
@@ -45,7 +86,12 @@ contextBridge.exposeInMainWorld('BotClientNative', {
 		return allChannel;
 	},
 	getUserExperiments(allData, botId) {
-		return ipcRenderer.sendSync(IPCEvent.GetExperiment, 'user', allData, botId);
+		return ipcRenderer.sendSync(
+			IPCEvent.GetExperiment,
+			'user',
+			allData,
+			botId,
+		);
 	},
 	getGuildExperiments() {
 		return ipcRenderer.sendSync(IPCEvent.GetExperiment, 'guild');
@@ -68,19 +114,23 @@ contextBridge.exposeInMainWorld('BotClientNative', {
 		);
 	},
 	clearDMsCache(botId) {
-		return ipcRenderer.sendSync(IPCEvent.HandlePrivateChannel, 'clear', botId);
+		return ipcRenderer.sendSync(
+			IPCEvent.HandlePrivateChannel,
+			'clear',
+			botId,
+		);
 	},
 	// Vesktop
-	close() {
-		ipcRenderer.send(IPCEvent.Close);
+	close(frameName) {
+		ipcRenderer.send(IPCEvent.Close, frameName);
 	},
-	minimize() {
-		ipcRenderer.send(IPCEvent.Minimize);
+	minimize(frameName) {
+		ipcRenderer.send(IPCEvent.Minimize, frameName);
 	},
-	maximize() {
-		ipcRenderer.send(IPCEvent.Maximize);
+	maximize(frameName) {
+		ipcRenderer.send(IPCEvent.Maximize, frameName);
 	},
-	focus() {
-		ipcRenderer.send(IPCEvent.Focus);
+	focus(frameName) {
+		ipcRenderer.send(IPCEvent.Focus, frameName);
 	},
 });

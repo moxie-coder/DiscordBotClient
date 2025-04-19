@@ -4,8 +4,8 @@ const { app: Electron } = require('electron');
 const app = Router();
 
 app.get('/', (req, res) => {
-	res.status(403).send({
-		message: 'Bots cannot use this endpoint (blocked by blacklist)',
+	return res.status(403).send({
+		message: 'APIServer: Bots cannot use this endpoint',
 		code: 20001,
 	});
 });

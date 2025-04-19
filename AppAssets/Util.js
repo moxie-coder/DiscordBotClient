@@ -23,15 +23,13 @@ module.exports = class Util {
 				badges.push(
 					UserBadges.PREMIUM_DEFAULT,
 					UserBadges.GUILD_BOOSTER_LEVEL(9),
-					UserBadges.PREMIUM_TENURE(60),
+					UserBadges.PREMIUM_TENURE_V2(60),
 					UserBadges.LEGACY_USERNAME,
 					UserBadges.QUEST_COMPLETED,
 				);
 			}
 		}
 		/*
-		// Check Nitro Type
-		// I hate Discord
 		// https://github.com/discord/discord-api-docs/issues/6623
 		if (userData.premium_type > 0) {
 			badges.push(UserBadges.PREMIUM_DEFAULT);
