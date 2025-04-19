@@ -271,6 +271,7 @@ class DiscordBotClient {
 		);
 		// Handle second instance
 		const gotTheLock = true;
+		const instanceID = `elysia_dbc_${Date.now()}`;
 		if (!gotTheLock) {
 			this.logger.debug('Second Instance detected. Quit app...');
 			this.#shouldQuitApp = true;
@@ -278,9 +279,10 @@ class DiscordBotClient {
 		} else {
 			app.whenReady().then(async () => {
 				this.logger.info('Creating session...');
-				this.customSession =
-					session.fromPartition('persist:elysia_dbc');
+				this.customSession = session.fromPartition(`persist:${instanceID}`);
 				this.logger.info('Checking Database...');
+				
+				process.env.DB_PATH = path.join(app.getPath('userData'), `db_${instanceID}`);
 				await Promise.all([
 					DirectMessagesDB.promiseReady,
 					PreloadedUserSettingsDB.promiseReady,
