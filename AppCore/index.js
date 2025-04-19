@@ -270,7 +270,7 @@ class DiscordBotClient {
 			},
 		);
 		// Handle second instance
-		const gotTheLock = app.requestSingleInstanceLock();
+		const gotTheLock = true;
 		if (!gotTheLock) {
 			this.logger.debug('Second Instance detected. Quit app...');
 			this.#shouldQuitApp = true;
